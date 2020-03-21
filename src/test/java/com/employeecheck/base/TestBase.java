@@ -10,20 +10,20 @@ import io.restassured.specification.RequestSpecification;
 
 
 public class TestBase {
-	public RequestSpecification httpRequest;
-	public Response response;
-	
-	
-	public Logger logger;
-	
-	@BeforeClass
-	public void setup() {
-		logger = Logger.getLogger("EmployeeRestAPI");
-		PropertyConfigurator.configure("log4j.properties");
-		logger.setLevel(Level.INFO);
-		
-		
-	}
-	
+    public RequestSpecification httpRequest;
+    public Response response;
+
+
+    public Logger logger;
+
+    @BeforeClass
+    public void setup() {
+        logger = Logger.getLogger("EmployeeRestAPI");
+        PropertyConfigurator.configure("log4j.properties");
+        logger.setLevel(Level.INFO);
+
+
+    }
+
 
 }
