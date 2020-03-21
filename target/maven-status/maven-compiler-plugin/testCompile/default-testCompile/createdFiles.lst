@@ -1,7 +1,0 @@
-com\employeecheck\utils\Listeners.class
-com\employeecheck\testcases\TC004_DeleteEmployeeRecord.class
-com\employeecheck\testcases\TC003_PostEmployeeRecord.class
-com\employeecheck\testcases\TC002_GetSingleEmployeeRecord.class
-com\employeecheck\utils\RESTUtils.class
-com\employeecheck\base\TestBase.class
-com\employeecheck\testcases\TC001_GetAllEmployees.class

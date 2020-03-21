@@ -35,6 +35,7 @@ public class TC004_DeleteEmployeeRecord extends TestBase {
     @AfterClass
     void getAllEmployeesClosure() {
         logger.info("****************** Completed DeleteEmployeeRecord **************");
+        System.out.println("Deepender");
 
     }
 
