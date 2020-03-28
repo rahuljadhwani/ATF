@@ -1,4 +1,4 @@
-package com.employeecheck.utils;
+package com.framework.atf.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
