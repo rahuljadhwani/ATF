@@ -1,12 +1,11 @@
-package com.employeecheck.testcases;
+package com.framework.atf.testcases;
 
+import com.framework.atf.base.TestBase;
+import com.framework.atf.utils.RESTUtils;
 import org.json.simple.JSONObject;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import com.employeecheck.base.TestBase;
-import com.employeecheck.utils.RESTUtils;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
