@@ -1,14 +1,19 @@
 package com.framework.atf.boilerplates;
 
+import com.framework.atf.utils.TestEngine;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class BasicPage {
+    TestEngine engine = new TestEngine();
+    WebDriver driver = engine.getDriver();
 
-    WebDriver driver;
-
-
-    public void enterText(String value, String id){
-        driver.findElement(By.xpath("//input[@id='"+id+"']"));
+    public void goTo(String url){
+        driver.get(url);
     }
+
+    public TestEngine getEngine(){
+        return engine;
+    }
+
 }

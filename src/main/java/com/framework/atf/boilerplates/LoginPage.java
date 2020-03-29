@@ -5,7 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends BasicPage {
+
     @FindBy(xpath = "//input[@id='txtUsername']")
     WebElement usernameTextbox;
 
@@ -15,9 +16,8 @@ public class LoginPage {
     @FindBy(xpath = "//input[@id='btnLogin']")
     WebElement loginButton;
 
-    WebDriver driver;
-    public LoginPage(WebDriver driver){
-        this.driver = driver;
+
+    public LoginPage(){
         PageFactory.initElements(driver, this);
 
     }

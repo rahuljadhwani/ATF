@@ -1,12 +1,11 @@
 package com.framework.atf.boilerplates;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.internal.JsonToWebElementConverter;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class DashboardPage {
-
-    WebDriver driver;
+public class DashboardPage extends BasicPage {
 
     @FindBy(xpath = "//span[text()='Assign Leave']")
     WebElement assignLeaveButton;
@@ -23,10 +22,9 @@ public class DashboardPage {
     @FindBy(xpath = "//a[text()='Logout']")
     WebElement logoutLink;
 
-    public DashboardPage(WeDriver driver){
-
-        this.driver = driver;
+    public DashboardPage(){
         PageFactory.initElements(driver, this);
+
     }
 
 
