@@ -1,5 +1,8 @@
 package com.framework.atf.utils;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.io.*;
 import java.net.URL;
 import java.util.Properties;
@@ -7,9 +10,11 @@ import java.util.Properties;
 public class TestEngine {
 
     private static Properties properties = new Properties();
+    WebDriver driver;
 
-    public TestEngine(){
+    public TestEngine() {
         getPropertyFile();
+        loadWebDriver();
     }
 
     private void getPropertyFile() {
@@ -30,7 +35,16 @@ public class TestEngine {
 
     }
 
-    public String getProperty(String key){
+    private void loadWebDriver() {
+        System.setProperty("webdriver.chrome.driver", getProperty("driverBinaryPath"));
+        driver = new ChromeDriver();
+    }
+
+    public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
