@@ -2,48 +2,70 @@ package com.framework.atf.utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.io.*;
-import java.net.URL;
 import java.util.Properties;
+import java.util.function.Predicate;
 
 public class TestEngine {
 
-    private static Properties properties = new Properties();
-    WebDriver driver;
+    private WebDriver driver = null;
+
+    public enum BrowserType {
+        CHROME,
+        FIREFOX,
+        OPERA,
+        HEADLESS
+    }
 
     public TestEngine() {
-        getPropertyFile();
-        loadWebDriver();
+        getWebDriver();
     }
 
-    private void getPropertyFile() {
-
-        URL resource = getClass().getClassLoader().getResource("default.properties");
-
-        if (resource == null) {
-            throw new IllegalArgumentException("default property file not found");
-        } else {
-            try {
-                File file = new File(resource.getFile());
-                FileReader reader = new FileReader(file);
-                properties.load(reader);
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
+    private WebDriver getWebDriver() {
+        if (driver != null) {
+            return driver;
         }
 
+        Predicate<String> p = s -> s.equalsIgnoreCase(Profile.getProperty("browser"));
+
+        if (p.test("chrome")) {
+            driver = getChromeDriver();
+        } else if (p.test("firefox")) {
+            driver = getFirefoxDriver();
+        } else if (p.test("opera")) {
+            driver = getOperaDriver();
+        } else if (p.test("headless")) {
+            driver = getHeadlessDriver();
+        }
+
+        return driver;
     }
 
-    private void loadWebDriver() {
-        System.setProperty("webdriver.chrome.driver", getProperty("driverBinaryPath"));
+    private WebDriver getOperaDriver() {
+        return driver;
+    }
+
+    private WebDriver getHeadlessDriver() {
+        return driver;
+    }
+
+    private WebDriver getFirefoxDriver() {
+        System.setProperty("webdriver.gecko.driver", Profile.getProperty("driverBinaryPath") + "\\geckodriver.exe");
+        driver = new FirefoxDriver();
+        return driver;
+    }
+
+    private WebDriver getChromeDriver() {
+        System.setProperty("webdriver.chrome.driver", Profile.getProperty("driverBinaryPath") + "\\chromedriver.exe");
         driver = new ChromeDriver();
+        return driver;
     }
 
-    public String getProperty(String key) {
-        return properties.getProperty(key);
-    }
-
+    /**
+     * Return the WebDriver driver
+     * @return driver
+     */
     public WebDriver getDriver() {
         return driver;
     }
