@@ -7,13 +7,14 @@ import java.io.FileReader;
 import java.net.URL;
 import java.util.Properties;
 import java.util.function.Consumer;
-
-import static sun.plugin.util.UserProfile.getPropertyFile;
+import java.util.logging.Logger;
 
 public class Profile {
 
     private static Properties properties = new Properties();
     public static Profile instance = null;
+    public Logger logger = Logger.getLogger("Profile.class");
+
 
     public Profile() {
         loadPropertyFiles();
@@ -41,6 +42,7 @@ public class Profile {
      * Consumer to load Property file
      */
     Consumer<String> propertyLoaderConsumer = file -> {
+        logger.info("Loading: " + file);
         URL resource = getClass().getClassLoader().getResource(file);
 
         if (resource == null) {
@@ -54,6 +56,7 @@ public class Profile {
                 System.out.println(e.toString());
             }
         }
+        logger.info(file + " loaded successfully");
     };
 
     /**
