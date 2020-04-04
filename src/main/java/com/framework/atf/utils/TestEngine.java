@@ -27,15 +27,20 @@ public class TestEngine {
             return driver;
         }
 
-        Predicate<String> p = s -> s.equalsIgnoreCase(Profile.getProperty("browser"));
+        Predicate<BrowserType> browserTypePredicate = bt -> {
+            if (bt.name().equalsIgnoreCase(Profile.getProperty("browser"))) {
+                return true;
+            }
+            return false;
+        };
 
-        if (p.test("chrome")) {
+        if (browserTypePredicate.test(BrowserType.CHROME)) {
             driver = getChromeDriver();
-        } else if (p.test("firefox")) {
+        } else if (browserTypePredicate.test(BrowserType.FIREFOX)) {
             driver = getFirefoxDriver();
-        } else if (p.test("opera")) {
+        } else if (browserTypePredicate.test(BrowserType.OPERA)) {
             driver = getOperaDriver();
-        } else if (p.test("headless")) {
+        } else if (browserTypePredicate.test(BrowserType.HEADLESS)) {
             driver = getHeadlessDriver();
         }
 
@@ -64,6 +69,7 @@ public class TestEngine {
 
     /**
      * Return the WebDriver driver
+     *
      * @return driver
      */
     public WebDriver getDriver() {
