@@ -12,18 +12,27 @@ import java.util.logging.Logger;
 public class Profile {
 
     private static Properties properties = new Properties();
-    public static Profile instance = null;
+    public static final ThreadLocal<Profile>  context = new ThreadLocal<Profile>();
+    private TestEngine testEngine;
     public Logger logger = Logger.getLogger("Profile.class");
 
 
-    public Profile() {
-        loadPropertyFiles();
+    public Profile(String browser) {
+        initializePropertyValues();
+        initializeTestEngine(browser);
+    }
+
+    private void initializeTestEngine(String browser) {
+        if (browser == null){
+            browser = Profile.getProperty("browser");
+        }
+        testEngine = new TestEngine(browser);
     }
 
     /**
      * Load Property files
      */
-    private void loadPropertyFiles() {
+    private void initializePropertyValues() {
         propertyLoaderConsumer.accept("default.properties");
     }
 
@@ -31,11 +40,15 @@ public class Profile {
      * Returns the Profile instance during runtime
      * @return Profile
      */
-    public static Profile getInstance() {
-        if (instance == null) {
-            instance = new Profile();
+    public static Profile getInstance(String browser) {
+        if (context.get() == null) {
+            context.set(new Profile(browser));
         }
-        return instance;
+        return context.get();
+    }
+
+    public static Profile getInstance(){
+        return getInstance(null);
     }
 
     /**
@@ -73,8 +86,7 @@ public class Profile {
      * @return WebDriver instance of TestEngine
      */
     public WebDriver getDriver() {
-        TestEngine engine = new TestEngine();
-        return engine.getDriver();
+        return testEngine.getDriver();
     }
 
 }

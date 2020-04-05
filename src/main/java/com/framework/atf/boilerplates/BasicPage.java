@@ -7,10 +7,9 @@ import org.openqa.selenium.WebDriver;
 
 public class BasicPage {
 
-    WebDriver driver;
+    WebDriver driver = Profile.getInstance().getDriver();
 
     public BasicPage() {
-        driver = Profile.getInstance().getDriver();
     }
 
     public void goTo(String url) {

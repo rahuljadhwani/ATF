@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class TestEngine {
 
     private WebDriver driver = null;
+    private String browser = null;
     public Logger logger = Logger.getLogger("TestEngine.class");
 
     public enum BrowserType {
@@ -20,8 +21,8 @@ public class TestEngine {
         HEADLESS
     }
 
-    public TestEngine() {
-        getWebDriver();
+    public TestEngine(String browser) {
+        this.browser = browser;
     }
 
     private WebDriver getWebDriver() {
@@ -30,7 +31,7 @@ public class TestEngine {
         }
 
         Predicate<BrowserType> browserTypePredicate = bt -> {
-            if (bt.name().equalsIgnoreCase(Profile.getProperty("browser"))) {
+            if (bt.name().equalsIgnoreCase(browser)) {
                 return true;
             }
             return false;
@@ -79,6 +80,6 @@ public class TestEngine {
      */
     public WebDriver getDriver() {
         logger.info("Getting driver for " + Profile.getProperty("browser"));
-        return driver;
+        return getWebDriver();
     }
 }
