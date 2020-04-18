@@ -19,4 +19,8 @@ public class BasicPage {
     public void close(){
         driver.close();
     }
+
+    public String title(){
+        return driver.getTitle();
+    }
 }

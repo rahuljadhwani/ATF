@@ -1,10 +1,15 @@
 package com.framework.atf.utils;
 
+import com.framework.atf.utils.system.OSValidator;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,7 +23,8 @@ public class TestEngine {
         CHROME,
         FIREFOX,
         OPERA,
-        HEADLESS
+        HEADLESS,
+        REMOTE
     }
 
     public TestEngine(String browser) {
@@ -45,8 +51,22 @@ public class TestEngine {
             driver = getOperaDriver();
         } else if (browserTypePredicate.test(BrowserType.HEADLESS)) {
             driver = getHeadlessDriver();
+        }else if (browserTypePredicate.test(BrowserType.REMOTE)){
+            driver = getRemoteDriver();
         }
 
+        return driver;
+    }
+
+    private WebDriver getRemoteDriver() {
+        logger.info("Loading Remote driver");
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        try {
+            URL url = new URL(Profile.getProperty("hub"));
+            driver = new RemoteWebDriver(url, capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         return driver;
     }
 
@@ -69,13 +89,14 @@ public class TestEngine {
 
     private WebDriver getChromeDriver() {
         logger.info("Loading chrome driver");
-        System.setProperty("webdriver.chrome.driver", Profile.getProperty("driverBinaryPath") + "\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", Profile.getProperty("driverBinaryPath") + (OSValidator.isWindows() ? "\\" : "/") + "chromedriver" + (OSValidator.isWindows() ? ".exe" : ""));
         driver = new ChromeDriver();
         return driver;
     }
 
     /**
      * Return the WebDriver driver
+     *
      * @return driver
      */
     public WebDriver getDriver() {
