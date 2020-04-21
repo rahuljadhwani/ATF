@@ -103,4 +103,16 @@ public class TestEngine {
         logger.info("Getting driver for " + Profile.getProperty("browser"));
         return getWebDriver();
     }
+
+    /**
+     * closing the WebDriver driver
+     */
+    public void closeDriver() {
+        logger.info("closing the driver");
+        if (driver == null) {
+            return;
+        }
+        driver.quit();
+        driver = null;
+    }
 }

@@ -1,12 +1,9 @@
 package com.framework.atf.boilerplates;
 
 import com.framework.atf.utils.Profile;
-import com.framework.atf.utils.TestEngine;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class BasicPage {
-
     WebDriver driver = Profile.getInstance().getDriver();
 
     public BasicPage() {
@@ -20,7 +17,7 @@ public class BasicPage {
         driver.close();
     }
 
-    public String title(){
+    public String getTitle(){
         return driver.getTitle();
     }
 }
