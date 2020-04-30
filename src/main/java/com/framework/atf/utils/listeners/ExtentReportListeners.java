@@ -1,4 +1,4 @@
-package com.framework.atf.utils;
+package com.framework.atf.utils.listeners;
 
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -10,7 +10,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class Listeners extends TestListenerAdapter {
+public class ExtentReportListeners extends TestListenerAdapter {
 
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports extent;

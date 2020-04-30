@@ -89,4 +89,8 @@ public class Profile {
         return testEngine.getDriver();
     }
 
+    public void closeDriver() {
+        testEngine.closeDriver();
+        context.remove();
+    }
 }

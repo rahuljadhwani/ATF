@@ -5,16 +5,7 @@ import com.framework.atf.testcases.BasicTestCase;
 import com.framework.atf.utils.Profile;
 import org.testng.annotations.Test;
 
-public class DemoTestTBD extends BasicTestCase {
-
-    @Test
-    public void test0() {
-        LoginPage objLoginPage = new LoginPage();
-        objLoginPage.goTo(Profile.getProperty("url"));
-        objLoginPage.doLogin("Admin", "admin123");
-        System.out.println(objLoginPage.getTitle());
-        objLoginPage.close();
-    }
+public class DemoTestTBD1 extends BasicTestCase {
 
     @Test
     public void test1() {
