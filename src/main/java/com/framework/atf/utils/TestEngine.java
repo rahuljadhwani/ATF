@@ -1,15 +1,20 @@
 package com.framework.atf.utils;
 
 import com.framework.atf.utils.system.OSValidator;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -31,27 +36,37 @@ public class TestEngine {
         this.browser = browser;
     }
 
+    Consumer<String> systemPropertyConsumer = browser -> {
+        Map<String, List<String>> driverDetails = new HashMap<>();
+        driverDetails.put("chrome", Arrays.asList("webdriver.chrome.driver", "chromedriver"));
+        driverDetails.put("opera", Arrays.asList("webdriver.opera.driver", "operadriver"));
+        driverDetails.put("firefox", Arrays.asList("webdriver.gecko.driver", "geckodriver"));
+        String driverName = driverDetails.get(browser).get(0);
+        String driverBinary = driverDetails.get(browser).get(1);
+        System.setProperty(driverName, Profile.getProperty("driverBinaryPath") + (OSValidator.isWindows() ? "\\" : "/") + driverBinary + (OSValidator.isWindows() ? ".exe" : ""));
+    };
+
+    Predicate<BrowserType> supportedBrowser = browserType -> {
+        if (browserType.name().equalsIgnoreCase(browser)) {
+            return true;
+        }
+        return false;
+    };
+
     private WebDriver getWebDriver() {
         if (driver != null) {
             return driver;
         }
 
-        Predicate<BrowserType> browserTypePredicate = bt -> {
-            if (bt.name().equalsIgnoreCase(browser)) {
-                return true;
-            }
-            return false;
-        };
-
-        if (browserTypePredicate.test(BrowserType.CHROME)) {
+        if (supportedBrowser.test(BrowserType.CHROME)) {
             driver = getChromeDriver();
-        } else if (browserTypePredicate.test(BrowserType.FIREFOX)) {
+        } else if (supportedBrowser.test(BrowserType.FIREFOX)) {
             driver = getFirefoxDriver();
-        } else if (browserTypePredicate.test(BrowserType.OPERA)) {
+        } else if (supportedBrowser.test(BrowserType.OPERA)) {
             driver = getOperaDriver();
-        } else if (browserTypePredicate.test(BrowserType.HEADLESS)) {
+        } else if (supportedBrowser.test(BrowserType.HEADLESS)) {
             driver = getHeadlessDriver();
-        }else if (browserTypePredicate.test(BrowserType.REMOTE)){
+        }else if (supportedBrowser.test(BrowserType.REMOTE)){
             driver = getRemoteDriver();
         }
 
@@ -71,7 +86,9 @@ public class TestEngine {
     }
 
     private WebDriver getOperaDriver() {
-        logger.warning("TODO: Implement Opera driver ");
+        logger.warning("Implement Opera driver ");
+        systemPropertyConsumer.accept(browser);
+        driver = new OperaDriver();
         return driver;
     }
 
@@ -82,14 +99,14 @@ public class TestEngine {
 
     private WebDriver getFirefoxDriver() {
         logger.info("Loading firefox driver");
-        System.setProperty("webdriver.gecko.driver", Profile.getProperty("driverBinaryPath") + "\\geckodriver.exe");
+        systemPropertyConsumer.accept(browser);
         driver = new FirefoxDriver();
         return driver;
     }
 
     private WebDriver getChromeDriver() {
         logger.info("Loading chrome driver");
-        System.setProperty("webdriver.chrome.driver", Profile.getProperty("driverBinaryPath") + (OSValidator.isWindows() ? "\\" : "/") + "chromedriver" + (OSValidator.isWindows() ? ".exe" : ""));
+        systemPropertyConsumer.accept(browser);
         driver = new ChromeDriver();
         return driver;
     }
@@ -112,7 +129,11 @@ public class TestEngine {
         if (driver == null) {
             return;
         }
-        driver.quit();
+        try {
+            driver.quit();
+            //TODO: Have to add this due to the issue with firefox quit funciton is not working as expected
+        }catch (Exception e){
+        };
         driver = null;
     }
 }
