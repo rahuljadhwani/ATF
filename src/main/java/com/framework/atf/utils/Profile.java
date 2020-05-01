@@ -25,6 +25,9 @@ public class Profile {
     private void initializeTestEngine(String browser) {
         if (browser == null){
             browser = Profile.getProperty("browser");
+        }else{
+            logger.info("Browser is not provided so loading chrome as default web browser...");
+            browser = "chrome";
         }
         testEngine = new TestEngine(browser);
     }
