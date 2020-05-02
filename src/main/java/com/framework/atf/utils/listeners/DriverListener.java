@@ -17,6 +17,7 @@ public class DriverListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult result) {
+        Profile.getInstance().closeDriver();
     }
 
     public void onTestSkipped(ITestResult result) {

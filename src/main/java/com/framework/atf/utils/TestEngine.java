@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -66,10 +67,11 @@ public class TestEngine {
             driver = getOperaDriver();
         } else if (supportedBrowser.test(BrowserType.HEADLESS)) {
             driver = getHeadlessDriver();
-        }else if (supportedBrowser.test(BrowserType.REMOTE)){
+        } else if (supportedBrowser.test(BrowserType.REMOTE)) {
             driver = getRemoteDriver();
         }
 
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return driver;
     }
 
@@ -131,8 +133,8 @@ public class TestEngine {
         }
         try {
             driver.quit();
-            //TODO: Have to add this due to the issue with firefox quit funciton is not working as expected
-        }catch (Exception e){
+        } catch (Exception e) {
+            //TODO: Nothing to print. Have to add this due to the issue with firefox quit() function where it is not working as expected
         };
         driver = null;
     }
