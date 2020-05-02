@@ -14,53 +14,73 @@ import java.util.function.BiFunction;
 public class BasicTestCase {
     WebDriver driver = Profile.getInstance().getDriver();
 
-    BiFunction<Locator, String, WebElement> webElementBiFunction = (locator, path) -> {
+    BiFunction<Locator, String, WebElement> webElementBiFunction = (locatorType, locatorArg) -> {
         driver = Profile.getInstance().getDriver();
         WebElement element;
-        switch (locator.name()) {
+        switch (locatorType.name()) {
             case "XPATH":
-                element = driver.findElement(By.xpath(path));
+                element = driver.findElement(By.xpath(locatorArg));
                 break;
             case "ID":
-                element = driver.findElement(By.id(path));
+                element = driver.findElement(By.id(locatorArg));
                 break;
             case "NAME":
-                element = driver.findElement(By.name(path));
+                element = driver.findElement(By.name(locatorArg));
                 break;
             case "TAGNAME":
-                element = driver.findElement(By.tagName(path));
+                element = driver.findElement(By.tagName(locatorArg));
                 break;
             case "CSSSELECTOR":
-                element = driver.findElement(By.cssSelector(path));
+                element = driver.findElement(By.cssSelector(locatorArg));
                 break;
             case "LINKTEXT":
-                element = driver.findElement(By.linkText(path));
+                element = driver.findElement(By.linkText(locatorArg));
                 break;
             case "PARTIALLINKTEXT":
-                element = driver.findElement(By.partialLinkText(path));
+                element = driver.findElement(By.partialLinkText(locatorArg));
                 break;
             case "CLASSNAME":
-                element = driver.findElement(By.className(path));
+                element = driver.findElement(By.className(locatorArg));
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + locator.name());
+                throw new IllegalStateException("Unexpected value: " + locatorType.name());
         }
         return element;
     };
 
+    /**
+     * This method is used to enter some text to the given input element using Selenium By class
+     * @param locator
+     * @param description
+     */
     public void enter(By locator, String description) {
         driver.findElement(locator).sendKeys(description);
     }
 
+    /**
+     * This method is used to enter some text to the given input element
+     * @param locator
+     * @param elementDiscriptor
+     * @param textToEnter
+     */
     public void enter(Locator locator, String elementDiscriptor, String textToEnter) {
         webElementBiFunction.apply(locator, elementDiscriptor).sendKeys(textToEnter);
     }
 
-    public void click(By locator) {
+    /**
+     * This method is used to click on an element using Selenium By class
+     * @param locator
+     */
+    public void clickOnElement(By locator) {
         driver.findElement(locator).click();
     }
 
-    public void click(Locator locator, String elementDiscriptor) {
+    /**
+     * This method is used to click on an element
+     * @param locator
+     * @param elementDiscriptor
+     */
+    public void clickOnElement(Locator locator, String elementDiscriptor) {
         webElementBiFunction.apply(locator, elementDiscriptor).click();
     }
 

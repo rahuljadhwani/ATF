@@ -15,9 +15,9 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
         loginPage.doLogin("Admin", "admin123");
-        click(By.xpath("//*[@id=\"menu_admin_viewAdminModule\"]"));
+        clickOnElement(By.xpath("//*[@id=\"menu_admin_viewAdminModule\"]"));
         enter(By.xpath("//*[@id=\"searchSystemUser_userName\"]"),"admin");
-        click(By.xpath("//*[@id=\"searchBtn\"]"));
+        clickOnElement(By.xpath("//*[@id=\"searchBtn\"]"));
         loginPage.close();
     }
 
@@ -26,9 +26,9 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
         loginPage.doLogin("Admin", "admin123");
-        click(Locator.XPATH,"//*[@id=\"menu_admin_viewAdminModule\"]");
+        clickOnElement(Locator.XPATH,"//*[@id=\"menu_admin_viewAdminModule\"]");
         enter(Locator.XPATH,"//*[@id=\"searchSystemUser_userName\"]","admin");
-        click(Locator.XPATH,"//*[@id=\"searchBtn\"]");
+        clickOnElement(Locator.XPATH,"//*[@id=\"searchBtn\"]");
         loginPage.close();
     }
 }
