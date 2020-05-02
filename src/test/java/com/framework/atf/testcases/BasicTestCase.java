@@ -6,6 +6,7 @@ import com.framework.atf.utils.listeners.DriverListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Listeners;
 
 import java.util.function.BiFunction;
@@ -84,4 +85,14 @@ public class BasicTestCase {
         webElementBiFunction.apply(locator, elementDiscriptor).click();
     }
 
+    /**
+     * Select value from dropdown through visible text
+     * @param locator
+     * @param elementDiscriptor
+     * @param value
+     */
+    public void selectValueFromDropdown(Locator locator, String elementDiscriptor, String value) {
+        Select select = new Select(webElementBiFunction.apply(locator, elementDiscriptor));
+        select.selectByVisibleText(value);
+    }
 }
