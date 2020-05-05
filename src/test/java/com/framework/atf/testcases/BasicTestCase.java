@@ -95,4 +95,6 @@ public class BasicTestCase {
         Select select = new Select(webElementBiFunction.apply(locator, elementDiscriptor));
         select.selectByVisibleText(value);
     }
+
+
 }
