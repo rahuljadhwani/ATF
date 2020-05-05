@@ -96,5 +96,14 @@ public class BasicTestCase {
         select.selectByVisibleText(value);
     }
 
+    /**
+     * upload file
+     * @param locator
+     * @param elementDiscriptor
+     * @param pathOfFile
+     */
+    public void uploadFile(Locator locator, String elementDiscriptor,String pathOfFile){
+        webElementBiFunction.apply(locator,elementDiscriptor).sendKeys(pathOfFile);
+    }
 
 }
