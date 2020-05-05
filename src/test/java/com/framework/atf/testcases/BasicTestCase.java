@@ -3,6 +3,7 @@ package com.framework.atf.testcases;
 import com.framework.atf.utils.Profile;
 import com.framework.atf.utils.enums.Locator;
 import com.framework.atf.utils.listeners.DriverListener;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,6 +52,7 @@ public class BasicTestCase {
 
     /**
      * This method is used to enter some text to the given input element using Selenium By class
+     *
      * @param locator
      * @param description
      */
@@ -60,6 +62,7 @@ public class BasicTestCase {
 
     /**
      * This method is used to enter some text to the given input element
+     *
      * @param locator
      * @param elementDiscriptor
      * @param textToEnter
@@ -70,6 +73,7 @@ public class BasicTestCase {
 
     /**
      * This method is used to click on an element using Selenium By class
+     *
      * @param locator
      */
     public void clickOnElement(By locator) {
@@ -78,6 +82,7 @@ public class BasicTestCase {
 
     /**
      * This method is used to click on an element
+     *
      * @param locator
      * @param elementDiscriptor
      */
@@ -87,6 +92,7 @@ public class BasicTestCase {
 
     /**
      * Select value from dropdown through visible text
+     *
      * @param locator
      * @param elementDiscriptor
      * @param value
@@ -98,12 +104,33 @@ public class BasicTestCase {
 
     /**
      * upload file
+     *
      * @param locator
      * @param elementDiscriptor
      * @param pathOfFile
      */
-    public void uploadFile(Locator locator, String elementDiscriptor,String pathOfFile){
-        webElementBiFunction.apply(locator,elementDiscriptor).sendKeys(pathOfFile);
+    public void uploadFile(Locator locator, String elementDiscriptor, String pathOfFile) {
+        webElementBiFunction.apply(locator, elementDiscriptor).sendKeys(pathOfFile);
+    }
+
+    public void acceptAlert() {
+        getAlert().accept();
+    }
+
+    public void dismissAlert() {
+        getAlert().dismiss();
+    }
+
+    public String getAlertText() {
+        return getAlert().getText();
+    }
+
+    public void sendTextToAlert(Locator locator, String input) {
+        getAlert().sendKeys(input);
+    }
+
+    private Alert getAlert() {
+        return driver.switchTo().alert();
     }
 
 }

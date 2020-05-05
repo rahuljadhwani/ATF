@@ -5,6 +5,7 @@ import com.framework.atf.testcases.BasicTestCase;
 import com.framework.atf.utils.Profile;
 import com.framework.atf.utils.enums.Locator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 public class DemoTestForBasicTestCase extends BasicTestCase {
@@ -30,5 +31,19 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         enter(Locator.XPATH,"//*[@id=\"searchSystemUser_userName\"]","admin");
         clickOnElement(Locator.XPATH,"//*[@id=\"searchBtn\"]");
         loginPage.close();
+    }
+
+    @Test
+    public void testAlert() throws InterruptedException {
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("http://demo.guru99.com/test/delete_customer.php");
+        clickOnElement(Locator.XPATH, "//*[@name='submit']");
+        System.out.println(getAlertText());
+        Thread.sleep(5000);
+        acceptAlert();
+        Thread.sleep(5000);
+        System.out.println(getAlertText());
+
+
     }
 }
