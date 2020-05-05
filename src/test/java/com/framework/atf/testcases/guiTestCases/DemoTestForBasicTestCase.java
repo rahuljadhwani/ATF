@@ -46,4 +46,9 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
 
 
     }
+
+    @Test
+    public void testFrame(){
+        //TODO: Need to test this
+    }
 }

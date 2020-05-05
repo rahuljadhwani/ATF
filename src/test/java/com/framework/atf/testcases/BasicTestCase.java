@@ -133,4 +133,27 @@ public class BasicTestCase {
         return driver.switchTo().alert();
     }
 
+    /**
+     * set frame using name for current driver instance
+     * @param name
+     */
+    public void setFrameUsingName(String name) {
+        driver.switchTo().frame(name);
+    }
+
+    /**
+     * set frame using web element for current driver instance
+     * @param element
+     */
+    public void setFrameUsingWebElement(WebElement element) {
+        driver.switchTo().frame(element);
+    }
+
+    /**
+     * set frame using id for current driver instance
+     * @param id
+     */
+    public void setFrameUsingId(String id) {
+        driver.switchTo().frame(id);
+    }
 }
