@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class DemoTestForBasicTestCase extends BasicTestCase {
 
 
-    @Test
+    //@Test
     public void testBasicTestCaseUsingByClass(){
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
@@ -22,7 +22,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         loginPage.close();
     }
 
-    @Test
+    //@Test
     public void testBasicTestCaseUsingEnumLocator(){
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
@@ -33,7 +33,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         loginPage.close();
     }
 
-    @Test
+    //@Test
     public void testAlert() throws InterruptedException {
         WebDriver driver = Profile.getInstance().getDriver();
         driver.get("http://demo.guru99.com/test/delete_customer.php");
@@ -47,8 +47,18 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
 
     }
 
-    @Test
+    //@Test
     public void testFrame(){
         //TODO: Need to test this
+    }
+
+    @Test
+    public void testActions() throws InterruptedException {
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("https://www.goindigo.in/");
+        driver.manage().window().maximize();//Have to use this otherwise it will throw ElementNotInteractableException due to overlay of elements
+        moveMouse(Locator.XPATH,"//ul/li[@class='topNavItem']/a[contains(text(),'Book')]");
+        clickOnElement(Locator.XPATH,"//*[@id=\"navbarSupportedContent\"]//a//i[@class='icon-book-flight']");
+        Thread.sleep(5000);
     }
 }

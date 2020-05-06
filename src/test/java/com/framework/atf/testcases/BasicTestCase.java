@@ -7,6 +7,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Listeners;
 
@@ -64,11 +65,11 @@ public class BasicTestCase {
      * This method is used to enter some text to the given input element
      *
      * @param locator
-     * @param elementDiscriptor
+     * @param elementDescriptor
      * @param textToEnter
      */
-    public void enter(Locator locator, String elementDiscriptor, String textToEnter) {
-        webElementBiFunction.apply(locator, elementDiscriptor).sendKeys(textToEnter);
+    public void enter(Locator locator, String elementDescriptor, String textToEnter) {
+        webElementBiFunction.apply(locator, elementDescriptor).sendKeys(textToEnter);
     }
 
     /**
@@ -84,21 +85,21 @@ public class BasicTestCase {
      * This method is used to click on an element
      *
      * @param locator
-     * @param elementDiscriptor
+     * @param elementDescriptor
      */
-    public void clickOnElement(Locator locator, String elementDiscriptor) {
-        webElementBiFunction.apply(locator, elementDiscriptor).click();
+    public void clickOnElement(Locator locator, String elementDescriptor) {
+        webElementBiFunction.apply(locator, elementDescriptor).click();
     }
 
     /**
      * Select value from dropdown through visible text
      *
      * @param locator
-     * @param elementDiscriptor
+     * @param elementDescriptor
      * @param value
      */
-    public void selectValueFromDropdown(Locator locator, String elementDiscriptor, String value) {
-        Select select = new Select(webElementBiFunction.apply(locator, elementDiscriptor));
+    public void selectValueFromDropdown(Locator locator, String elementDescriptor, String value) {
+        Select select = new Select(webElementBiFunction.apply(locator, elementDescriptor));
         select.selectByVisibleText(value);
     }
 
@@ -106,11 +107,11 @@ public class BasicTestCase {
      * upload file
      *
      * @param locator
-     * @param elementDiscriptor
+     * @param elementDescriptor
      * @param pathOfFile
      */
-    public void uploadFile(Locator locator, String elementDiscriptor, String pathOfFile) {
-        webElementBiFunction.apply(locator, elementDiscriptor).sendKeys(pathOfFile);
+    public void uploadFile(Locator locator, String elementDescriptor, String pathOfFile) {
+        webElementBiFunction.apply(locator, elementDescriptor).sendKeys(pathOfFile);
     }
 
     public void acceptAlert() {
@@ -155,5 +156,15 @@ public class BasicTestCase {
      */
     public void setFrameUsingId(String id) {
         driver.switchTo().frame(id);
+    }
+
+    /**
+     * Move the mouse cursor to specific web element
+     * @param locator
+     * @param elementDescriptor
+     */
+    public void moveMouse(Locator locator, String elementDescriptor) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(webElementBiFunction.apply(locator, elementDescriptor)).build().perform();
     }
 }
