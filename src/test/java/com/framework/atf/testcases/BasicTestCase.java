@@ -138,23 +138,24 @@ public class BasicTestCase {
      * set frame using name for current driver instance
      * @param name
      */
-    public void setFrameUsingName(String name) {
+    public void switchToFrameUsingName(String name) {
         driver.switchTo().frame(name);
     }
 
     /**
      * set frame using web element for current driver instance
-     * @param element
+     * @param locator
+     * @param elementDescriptor
      */
-    public void setFrameUsingWebElement(WebElement element) {
-        driver.switchTo().frame(element);
+    public void switchToFrameUsingWebElement(Locator locator, String elementDescriptor) {
+        driver.switchTo().frame(webElementBiFunction.apply(locator, elementDescriptor));
     }
 
     /**
      * set frame using id for current driver instance
      * @param id
      */
-    public void setFrameUsingId(String id) {
+    public void switchToFrameUsingId(String id) {
         driver.switchTo().frame(id);
     }
 
@@ -166,5 +167,20 @@ public class BasicTestCase {
     public void moveMouse(Locator locator, String elementDescriptor) {
         Actions actions = new Actions(driver);
         actions.moveToElement(webElementBiFunction.apply(locator, elementDescriptor)).build().perform();
+    }
+
+    /**
+     * Drag from source to target
+     * @param sourcelocator
+     * @param elementDescriptorSource
+     * @param targetLocator
+     * @param elementDescriptorTarget
+     */
+    public void drapAndDrop(Locator sourcelocator, String elementDescriptorSource, Locator targetLocator, String elementDescriptorTarget) {
+        Actions actions = new Actions(driver);
+//        actions.clickAndHold(webElementBiFunction.apply(sourcelocator, elementDescriptorSource)).moveToElement(webElementBiFunction.apply(targetLocator, elementDescriptorTarget)).release().build().perform();
+        actions.dragAndDrop(webElementBiFunction.apply(sourcelocator,
+                elementDescriptorSource),
+                webElementBiFunction.apply(targetLocator,elementDescriptorTarget)).build().perform();
     }
 }

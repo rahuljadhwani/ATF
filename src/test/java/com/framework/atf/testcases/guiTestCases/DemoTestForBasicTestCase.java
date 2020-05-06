@@ -52,7 +52,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         //TODO: Need to test this
     }
 
-    @Test
+    //@Test
     public void testActions() throws InterruptedException {
         WebDriver driver = Profile.getInstance().getDriver();
         driver.get("https://www.goindigo.in/");
@@ -60,5 +60,18 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         moveMouse(Locator.XPATH,"//ul/li[@class='topNavItem']/a[contains(text(),'Book')]");
         clickOnElement(Locator.XPATH,"//*[@id=\"navbarSupportedContent\"]//a//i[@class='icon-book-flight']");
         Thread.sleep(5000);
+    }
+
+    @Test
+    public void drapAndDropTest() throws InterruptedException {
+        //TODO: Drag and drop is not working
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("https://www.w3schools.com/html/html5_draganddrop.asp");
+        switchToFrameUsingWebElement(Locator.XPATH,"//iframe[@src='tryhtml5_draganddrop_ifr.htm']");
+        Thread.sleep(5000);
+        System.out.println("switched to frame");
+        drapAndDrop(Locator.XPATH,"//*[@id='drag1']",Locator.XPATH,"//*[@id=\"div2\"]");
+        System.out.println("element is moved");
+        Thread.sleep(10000);
     }
 }
