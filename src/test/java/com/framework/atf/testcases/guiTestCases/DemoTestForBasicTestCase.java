@@ -6,10 +6,12 @@ import com.framework.atf.utils.Profile;
 import com.framework.atf.utils.enums.Locator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-public class DemoTestForBasicTestCase extends BasicTestCase {
+import java.util.List;
 
+public class DemoTestForBasicTestCase extends BasicTestCase {
 
     //@Test
     public void testBasicTestCaseUsingByClass(){
@@ -75,7 +77,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         Thread.sleep(10000);
     }
 
-    @Test
+    //@Test
     public void drapAndDropJqueryPageTest() throws InterruptedException {
         //TODO: Drag and drop is not working
         WebDriver driver = Profile.getInstance().getDriver();
@@ -86,5 +88,14 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         drapAndDrop(Locator.XPATH,"//*[@id=\"draggable\"]/p",Locator.XPATH,"//*[@id=\"droppable\"]");
         System.out.println("element is moved");
         Thread.sleep(10000);
+    }
+
+    @Test
+    public void getAllLinksOfThePage(){
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("https://www.w3schools.com");
+        List<WebElement> links = findElements(Locator.TAGNAME,"a");
+        System.out.println(links.stream().count());
+        links.stream().forEach(webElement -> System.out.println(webElement.getText()));
     }
 }

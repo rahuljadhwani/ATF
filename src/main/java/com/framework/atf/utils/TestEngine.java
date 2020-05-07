@@ -71,8 +71,8 @@ public class TestEngine {
             driver = getRemoteDriver();
         }
 
-        driver.manage().timeouts().implicitlyWait(Integer.getInteger(Profile.getProperty("implicitWait")), TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(Integer.getInteger(Profile.getProperty("pageLoadTimeout")),TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Long.parseLong(Profile.getProperty("implicitlyWait")), TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(Long.parseLong(Profile.getProperty("pageLoadTimeout")), TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         return driver;

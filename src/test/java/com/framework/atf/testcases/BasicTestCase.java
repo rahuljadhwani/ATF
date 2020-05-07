@@ -11,6 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Listeners;
 
+import java.util.List;
 import java.util.function.BiFunction;
 
 @Listeners(DriverListener.class)
@@ -50,6 +51,41 @@ public class BasicTestCase {
         }
         return element;
     };
+
+    BiFunction<Locator, String, List<WebElement>> webElementBiFunctions = (locatorType, locatorArg) -> {
+        driver = Profile.getInstance().getDriver();
+        List<WebElement> elements;
+        switch (locatorType.name()) {
+            case "XPATH":
+                elements = driver.findElements(By.xpath(locatorArg));
+                break;
+            case "ID":
+                elements = driver.findElements(By.id(locatorArg));
+                break;
+            case "NAME":
+                elements = driver.findElements(By.name(locatorArg));
+                break;
+            case "TAGNAME":
+                elements = driver.findElements(By.tagName(locatorArg));
+                break;
+            case "CSSSELECTOR":
+                elements = driver.findElements(By.cssSelector(locatorArg));
+                break;
+            case "LINKTEXT":
+                elements = driver.findElements(By.linkText(locatorArg));
+                break;
+            case "PARTIALLINKTEXT":
+                elements = driver.findElements(By.partialLinkText(locatorArg));
+                break;
+            case "CLASSNAME":
+                elements = driver.findElements(By.className(locatorArg));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + locatorType.name());
+        }
+        return elements;
+    };
+
 
     /**
      * This method is used to enter some text to the given input element using Selenium By class
@@ -182,5 +218,9 @@ public class BasicTestCase {
                 .release()
                 .build()
                 .perform();
+    }
+
+    public List<WebElement> findElements(Locator locator, String elementDescriptor) {
+        return webElementBiFunctions.apply(locator,elementDescriptor);
     }
 }
