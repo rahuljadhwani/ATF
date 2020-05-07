@@ -62,7 +62,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         Thread.sleep(5000);
     }
 
-    @Test
+    //@Test
     public void drapAndDropTest() throws InterruptedException {
         //TODO: Drag and drop is not working
         WebDriver driver = Profile.getInstance().getDriver();
@@ -71,6 +71,19 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         Thread.sleep(5000);
         System.out.println("switched to frame");
         drapAndDrop(Locator.XPATH,"//*[@id='drag1']",Locator.XPATH,"//*[@id=\"div2\"]");
+        System.out.println("element is moved");
+        Thread.sleep(10000);
+    }
+
+    @Test
+    public void drapAndDropJqueryPageTest() throws InterruptedException {
+        //TODO: Drag and drop is not working
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("https://jqueryui.com/droppable/");
+        switchToFrameUsingWebElement(Locator.XPATH,"//iframe[@src=\"/resources/demos/droppable/default.html\"]");
+        Thread.sleep(5000);
+        System.out.println("switched to frame");
+        drapAndDrop(Locator.XPATH,"//*[@id=\"draggable\"]/p",Locator.XPATH,"//*[@id=\"droppable\"]");
         System.out.println("element is moved");
         Thread.sleep(10000);
     }

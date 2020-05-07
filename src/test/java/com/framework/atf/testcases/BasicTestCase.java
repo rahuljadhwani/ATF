@@ -178,9 +178,9 @@ public class BasicTestCase {
      */
     public void drapAndDrop(Locator sourcelocator, String elementDescriptorSource, Locator targetLocator, String elementDescriptorTarget) {
         Actions actions = new Actions(driver);
-//        actions.clickAndHold(webElementBiFunction.apply(sourcelocator, elementDescriptorSource)).moveToElement(webElementBiFunction.apply(targetLocator, elementDescriptorTarget)).release().build().perform();
-        actions.dragAndDrop(webElementBiFunction.apply(sourcelocator,
-                elementDescriptorSource),
-                webElementBiFunction.apply(targetLocator,elementDescriptorTarget)).build().perform();
+        actions.clickAndHold(webElementBiFunction.apply(sourcelocator, elementDescriptorSource)).moveToElement(webElementBiFunction.apply(targetLocator, elementDescriptorTarget))
+                .release()
+                .build()
+                .perform();
     }
 }
