@@ -3,6 +3,8 @@ package com.framework.atf.testcases.guiTestCases;
 import com.framework.atf.boilerplates.LoginPage;
 import com.framework.atf.testcases.BasicTestCase;
 import com.framework.atf.utils.Profile;
+import com.framework.atf.utils.common.ScreenshotHelper;
+import com.framework.atf.utils.enums.ScreenshotType;
 import org.testng.annotations.Test;
 
 public class DemoTestTBD extends BasicTestCase {
@@ -23,5 +25,13 @@ public class DemoTestTBD extends BasicTestCase {
         objLoginPage.doLogin("Admin", "admin123");
         System.out.println(objLoginPage.getTitle());
         objLoginPage.close();
+    }
+
+    @Test
+    public void testScreenshot() throws InterruptedException {
+        Profile.getInstance().getDriver().get("https://www.airbnb.co.in/");
+        ScreenshotHelper.takeScreenshot(ScreenshotType.VIEWABLEAREA,"test2");
+        Thread.sleep(5000);
+        ScreenshotHelper.takeScreenshot(ScreenshotType.FULLWEBPAGE,"test3");
     }
 }
