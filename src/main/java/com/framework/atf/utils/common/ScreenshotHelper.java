@@ -26,7 +26,7 @@ public class ScreenshotHelper {
     private static WebDriver driver = Profile.getInstance().getDriver();
     static BiConsumer<ScreenshotType, String> screenshotSupplier = (screenshotType, testcaseName) -> {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
-        switch (screenshotType.name()){
+        switch (screenshotType.name()) {
             case "VIEWABLEAREA":
                 File scr = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 try {
@@ -34,6 +34,18 @@ public class ScreenshotHelper {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case "FULLWEBPAGE":
+                Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
+                try {
+
+                    ImageIO.write(screenshot.getImage(), "PNG", new File("src/test/resources/screenshots/" + testcaseName + "_" + timestamp + ".png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "PERTICULARWEBELEMENT":
+                //TODO: https://www.javacodegeeks.com/2019/07/using-selenium-webdriver-full-page-screenshots.html
                 break;
         }
 
