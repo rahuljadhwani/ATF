@@ -220,7 +220,43 @@ public class BasicTestCase {
                 .perform();
     }
 
+    /**
+     * returns list of web elements
+     * @param locator
+     * @param elementDescriptor
+     * @return
+     */
     public List<WebElement> findElements(Locator locator, String elementDescriptor) {
         return webElementBiFunctions.apply(locator,elementDescriptor);
+    }
+
+    /**
+     * get to page
+     * @param url
+     */
+    public void get(String url) {
+        driver.get(url);
+    }
+
+    /**
+     * navigate forward
+     */
+    public void navigateForward() {
+        driver.navigate().forward();
+    }
+
+    /**
+     * navigate back
+     */
+    public void navigateBack() {
+        driver.navigate().back();
+    }
+
+    /**
+     * navigate to page
+     * @param url
+     */
+    public void navigateTo(String url) {
+        driver.navigate().to(url);
     }
 }

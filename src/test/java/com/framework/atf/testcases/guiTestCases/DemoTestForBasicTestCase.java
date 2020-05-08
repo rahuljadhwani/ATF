@@ -90,12 +90,20 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         Thread.sleep(10000);
     }
 
-    @Test
+    //@Test
     public void getAllLinksOfThePage(){
         WebDriver driver = Profile.getInstance().getDriver();
         driver.get("https://www.w3schools.com");
         List<WebElement> links = findElements(Locator.TAGNAME,"a");
         System.out.println(links.stream().count());
         links.stream().forEach(webElement -> System.out.println(webElement.getText()));
+    }
+
+    @Test
+    public void testBrowserNavigation(){
+        get("https://www.w3schools.com");
+        navigateTo("https://google.com");
+        navigateBack();
+        navigateForward();
     }
 }
