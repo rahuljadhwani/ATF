@@ -2,6 +2,8 @@ package com.framework.atf.utils.listeners;
 
 import com.framework.atf.boilerplates.BasicPage;
 import com.framework.atf.utils.Profile;
+import com.framework.atf.utils.common.ScreenshotHelper;
+import com.framework.atf.utils.enums.ScreenshotType;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -17,6 +19,7 @@ public class DriverListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult result) {
+        ScreenshotHelper.takeScreenshot(ScreenshotType.VIEWABLEAREA,result.getName());
         Profile.getInstance().closeDriver();
     }
 

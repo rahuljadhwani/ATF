@@ -5,6 +5,7 @@ import com.framework.atf.testcases.BasicTestCase;
 import com.framework.atf.utils.Profile;
 import com.framework.atf.utils.common.ScreenshotHelper;
 import com.framework.atf.utils.enums.ScreenshotType;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class DemoTestTBD extends BasicTestCase {
@@ -24,6 +25,7 @@ public class DemoTestTBD extends BasicTestCase {
         objLoginPage.goTo(Profile.getProperty("url"));
         objLoginPage.doLogin("Admin", "admin123");
         System.out.println(objLoginPage.getTitle());
+        Assert.assertEquals(objLoginPage.getTitle(),"XYZ");
         objLoginPage.close();
     }
 
