@@ -267,4 +267,13 @@ public class BasicTestCase {
     public void navigateTo(String url) {
         driver.navigate().to(url);
     }
+
+    /**
+     * clears the input web element
+     * @param locator
+     * @param elementDescriptor
+     */
+    public void clear(Locator locator ,String elementDescriptor){
+        webElementBiFunction.apply(locator,elementDescriptor).clear();
+    }
 }
