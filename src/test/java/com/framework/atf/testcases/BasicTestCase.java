@@ -172,6 +172,7 @@ public class BasicTestCase {
 
     /**
      * set frame using name for current driver instance
+     *
      * @param name
      */
     public void switchToFrameUsingName(String name) {
@@ -180,6 +181,7 @@ public class BasicTestCase {
 
     /**
      * set frame using web element for current driver instance
+     *
      * @param locator
      * @param elementDescriptor
      */
@@ -189,6 +191,7 @@ public class BasicTestCase {
 
     /**
      * set frame using id for current driver instance
+     *
      * @param id
      */
     public void switchToFrameUsingId(String id) {
@@ -197,6 +200,7 @@ public class BasicTestCase {
 
     /**
      * Move the mouse cursor to specific web element
+     *
      * @param locator
      * @param elementDescriptor
      */
@@ -207,6 +211,7 @@ public class BasicTestCase {
 
     /**
      * Drag from source to target
+     *
      * @param sourcelocator
      * @param elementDescriptorSource
      * @param targetLocator
@@ -222,16 +227,18 @@ public class BasicTestCase {
 
     /**
      * returns list of web elements
+     *
      * @param locator
      * @param elementDescriptor
      * @return
      */
     public List<WebElement> findElements(Locator locator, String elementDescriptor) {
-        return webElementBiFunctions.apply(locator,elementDescriptor);
+        return webElementBiFunctions.apply(locator, elementDescriptor);
     }
 
     /**
      * get to page
+     *
      * @param url
      */
     public void get(String url) {
@@ -254,6 +261,7 @@ public class BasicTestCase {
 
     /**
      * navigate to page
+     *
      * @param url
      */
     public void navigateTo(String url) {
