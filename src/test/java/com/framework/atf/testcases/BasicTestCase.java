@@ -8,7 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
 
 import java.util.List;
@@ -125,6 +127,18 @@ public class BasicTestCase {
      */
     public void clickOnElement(Locator locator, String elementDescriptor) {
         webElementBiFunction.apply(locator, elementDescriptor).click();
+    }
+
+    /**
+     * This method is used to click on an element with wait
+     *
+     * @param locator
+     * @param elementDescriptor
+     */
+    public void clickOnElement(Locator locator, String elementDescriptor, long timeout) {
+        WebElement webElement = webElementBiFunction.apply(locator,elementDescriptor);
+        new WebDriverWait(driver,timeout).ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(webElement));
+        webElement.click();
     }
 
     /**
