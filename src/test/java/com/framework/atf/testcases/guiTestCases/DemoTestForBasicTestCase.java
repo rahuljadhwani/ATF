@@ -87,4 +87,12 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         navigateBack();
         navigateForward();
     }
+
+    @Test
+    public void testExplicitlyWait() throws InterruptedException {
+        get("https://www.google.com/");
+        enter(Locator.XPATH,"//input[@name='q']","Deepender Rathore");
+        clickOnElement(Locator.XPATH,"(//input[@value='Google Search'])[1]",10);
+        Thread.sleep(5000);
+    }
 }
