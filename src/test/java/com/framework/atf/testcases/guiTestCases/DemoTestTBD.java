@@ -5,6 +5,7 @@ import com.framework.atf.testcases.BasicTestCase;
 import com.framework.atf.utils.Profile;
 import com.framework.atf.utils.common.ScreenshotHelper;
 import com.framework.atf.utils.enums.ScreenshotType;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,7 +32,8 @@ public class DemoTestTBD extends BasicTestCase {
 
     @Test
     public void testScreenshot() throws InterruptedException {
-        Profile.getInstance().getDriver().get("https://www.airbnb.co.in/");
+        WebDriver driver = Profile.getInstance().getDriver();
+        driver.get("https://www.airbnb.co.in/");
         ScreenshotHelper.takeScreenshot(ScreenshotType.VIEWABLEAREA,"test2");
         Thread.sleep(5000);
         ScreenshotHelper.takeScreenshot(ScreenshotType.FULLWEBPAGE,"test3");

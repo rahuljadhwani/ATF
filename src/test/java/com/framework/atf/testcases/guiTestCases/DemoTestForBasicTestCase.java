@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DemoTestForBasicTestCase extends BasicTestCase {
 
-    //@Test
+    @Test
     public void testBasicTestCaseUsingByClass(){
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
@@ -24,7 +24,7 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         loginPage.close();
     }
 
-    //@Test
+    @Test
     public void testBasicTestCaseUsingEnumLocator(){
         LoginPage loginPage = new LoginPage();
         loginPage.goTo(Profile.getProperty("url"));
@@ -35,10 +35,9 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         loginPage.close();
     }
 
-    //@Test
+    @Test
     public void testAlert() throws InterruptedException {
-        WebDriver driver = Profile.getInstance().getDriver();
-        driver.get("http://demo.guru99.com/test/delete_customer.php");
+        get("http://demo.guru99.com/test/delete_customer.php");
         clickOnElement(Locator.XPATH, "//*[@name='submit']");
         System.out.println(getAlertText());
         Thread.sleep(5000);
@@ -49,39 +48,22 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
 
     }
 
-    //@Test
+    @Test
     public void testFrame(){
         //TODO: Need to test this
     }
 
-    //@Test
+    @Test
     public void testActions() throws InterruptedException {
-        WebDriver driver = Profile.getInstance().getDriver();
-        driver.get("https://www.goindigo.in/");
-        driver.manage().window().maximize();//Have to use this otherwise it will throw ElementNotInteractableException due to overlay of elements
+        get("https://www.goindigo.in/");
         moveMouse(Locator.XPATH,"//ul/li[@class='topNavItem']/a[contains(text(),'Book')]");
         clickOnElement(Locator.XPATH,"//*[@id=\"navbarSupportedContent\"]//a//i[@class='icon-book-flight']");
         Thread.sleep(5000);
     }
 
-    //@Test
-    public void drapAndDropTest() throws InterruptedException {
-        //TODO: Drag and drop is not working
-        WebDriver driver = Profile.getInstance().getDriver();
-        driver.get("https://www.w3schools.com/html/html5_draganddrop.asp");
-        switchToFrameUsingWebElement(Locator.XPATH,"//iframe[@src='tryhtml5_draganddrop_ifr.htm']");
-        Thread.sleep(5000);
-        System.out.println("switched to frame");
-        drapAndDrop(Locator.XPATH,"//*[@id='drag1']",Locator.XPATH,"//*[@id=\"div2\"]");
-        System.out.println("element is moved");
-        Thread.sleep(10000);
-    }
-
-    //@Test
+    @Test
     public void drapAndDropJqueryPageTest() throws InterruptedException {
-        //TODO: Drag and drop is not working
-        WebDriver driver = Profile.getInstance().getDriver();
-        driver.get("https://jqueryui.com/droppable/");
+        get("https://jqueryui.com/droppable/");
         switchToFrameUsingWebElement(Locator.XPATH,"//iframe[@src=\"/resources/demos/droppable/default.html\"]");
         Thread.sleep(5000);
         System.out.println("switched to frame");
@@ -90,10 +72,9 @@ public class DemoTestForBasicTestCase extends BasicTestCase {
         Thread.sleep(10000);
     }
 
-    //@Test
+    @Test
     public void getAllLinksOfThePage(){
-        WebDriver driver = Profile.getInstance().getDriver();
-        driver.get("https://www.w3schools.com");
+        get("https://www.w3schools.com");
         List<WebElement> links = findElements(Locator.TAGNAME,"a");
         System.out.println(links.stream().count());
         links.stream().forEach(webElement -> System.out.println(webElement.getText()));

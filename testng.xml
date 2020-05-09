@@ -9,6 +9,7 @@
             <class name="com.framework.atf.testcases.guiTestCases.DemoTestTBD"/>
             <class name="com.framework.atf.testcases.guiTestCases.DemoTestTBD1"/>
             <class name="com.framework.atf.testcases.guiTestCases.DemoTestTBD2"/>
+            <class name="com.framework.atf.testcases.guiTestCases.DemoTestForBasicTestCase"></class>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

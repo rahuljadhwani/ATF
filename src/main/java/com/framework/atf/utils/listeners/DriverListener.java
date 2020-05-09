@@ -11,6 +11,7 @@ import org.testng.ITestResult;
 public class DriverListener implements ITestListener {
 
     public void onTestStart(ITestResult result) {
+        Profile.getInstance().getDriver();
         System.out.println(result.getName() + " test case started");
     }
 

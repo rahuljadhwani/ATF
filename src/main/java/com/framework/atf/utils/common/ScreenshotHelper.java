@@ -23,8 +23,9 @@ import java.util.function.BiConsumer;
 
 public class ScreenshotHelper {
 
-    private static WebDriver driver = Profile.getInstance().getDriver();
-    static BiConsumer<ScreenshotType, String> screenshotSupplier = (screenshotType, testcaseName) -> {
+    WebDriver driver = Profile.getInstance().getDriver();
+
+    BiConsumer<ScreenshotType, String> screenshotSupplier = (screenshotType, testcaseName) -> {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
         switch (screenshotType.name()) {
             case "VIEWABLEAREA":
@@ -51,8 +52,11 @@ public class ScreenshotHelper {
 
     };
 
-    public static void takeScreenshot(ScreenshotType screenshotType, String testcaseName) {
+    private void saveScreenshot(ScreenshotType screenshotType, String testcaseName) {
         screenshotSupplier.accept(screenshotType, testcaseName);
     }
 
+    public static void takeScreenshot(ScreenshotType screenshotType, String testcaseName) {
+        new ScreenshotHelper().saveScreenshot(screenshotType,testcaseName);
+    }
 }

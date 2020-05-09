@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 
 @Listeners(DriverListener.class)
 public class BasicTestCase {
-    WebDriver driver = Profile.getInstance().getDriver();
+    WebDriver driver;
 
     BiFunction<Locator, String, WebElement> webElementBiFunction = (locatorType, locatorArg) -> {
         driver = Profile.getInstance().getDriver();
@@ -97,6 +97,7 @@ public class BasicTestCase {
      * @param description
      */
     public void enter(By locator, String description) {
+        driver = Profile.getInstance().getDriver();
         driver.findElement(locator).sendKeys(description);
     }
 
@@ -117,6 +118,7 @@ public class BasicTestCase {
      * @param locator
      */
     public void clickOnElement(By locator) {
+        driver = Profile.getInstance().getDriver();
         driver.findElement(locator).click();
     }
 
@@ -137,8 +139,9 @@ public class BasicTestCase {
      * @param elementDescriptor
      */
     public void clickOnElement(Locator locator, String elementDescriptor, long timeout) {
-        WebElement webElement = webElementBiFunction.apply(locator,elementDescriptor);
-        new WebDriverWait(driver,timeout).ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(webElement));
+        driver = Profile.getInstance().getDriver();
+        WebElement webElement = webElementBiFunction.apply(locator, elementDescriptor);
+        new WebDriverWait(driver, timeout).ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();
     }
 
@@ -182,6 +185,7 @@ public class BasicTestCase {
     }
 
     private Alert getAlert() {
+        driver = Profile.getInstance().getDriver();
         return driver.switchTo().alert();
     }
 
@@ -191,6 +195,7 @@ public class BasicTestCase {
      * @param name
      */
     public void switchToFrameUsingName(String name) {
+        driver = Profile.getInstance().getDriver();
         driver.switchTo().frame(name);
     }
 
@@ -201,6 +206,7 @@ public class BasicTestCase {
      * @param elementDescriptor
      */
     public void switchToFrameUsingWebElement(Locator locator, String elementDescriptor) {
+        driver = Profile.getInstance().getDriver();
         driver.switchTo().frame(webElementBiFunction.apply(locator, elementDescriptor));
     }
 
@@ -210,6 +216,7 @@ public class BasicTestCase {
      * @param id
      */
     public void switchToFrameUsingId(String id) {
+        driver = Profile.getInstance().getDriver();
         driver.switchTo().frame(id);
     }
 
@@ -220,6 +227,7 @@ public class BasicTestCase {
      * @param elementDescriptor
      */
     public void moveMouse(Locator locator, String elementDescriptor) {
+        driver = Profile.getInstance().getDriver();
         Actions actions = new Actions(driver);
         actions.moveToElement(webElementBiFunction.apply(locator, elementDescriptor)).build().perform();
     }
@@ -233,6 +241,7 @@ public class BasicTestCase {
      * @param elementDescriptorTarget
      */
     public void drapAndDrop(Locator sourcelocator, String elementDescriptorSource, Locator targetLocator, String elementDescriptorTarget) {
+        driver = Profile.getInstance().getDriver();
         Actions actions = new Actions(driver);
         actions.clickAndHold(webElementBiFunction.apply(sourcelocator, elementDescriptorSource)).moveToElement(webElementBiFunction.apply(targetLocator, elementDescriptorTarget))
                 .release()
@@ -257,6 +266,7 @@ public class BasicTestCase {
      * @param url
      */
     public void get(String url) {
+        driver = Profile.getInstance().getDriver();
         driver.get(url);
     }
 
@@ -264,6 +274,7 @@ public class BasicTestCase {
      * navigate forward
      */
     public void navigateForward() {
+        driver = Profile.getInstance().getDriver();
         driver.navigate().forward();
     }
 
@@ -271,6 +282,7 @@ public class BasicTestCase {
      * navigate back
      */
     public void navigateBack() {
+        driver = Profile.getInstance().getDriver();
         driver.navigate().back();
     }
 
@@ -280,15 +292,17 @@ public class BasicTestCase {
      * @param url
      */
     public void navigateTo(String url) {
+        driver = Profile.getInstance().getDriver();
         driver.navigate().to(url);
     }
 
     /**
      * clears the input web element
+     *
      * @param locator
      * @param elementDescriptor
      */
-    public void clear(Locator locator ,String elementDescriptor){
-        webElementBiFunction.apply(locator,elementDescriptor).clear();
+    public void clear(Locator locator, String elementDescriptor) {
+        webElementBiFunction.apply(locator, elementDescriptor).clear();
     }
 }
