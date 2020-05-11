@@ -81,5 +81,10 @@
             <artifactId>ashot</artifactId>
             <version>1.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <version>2.40.0</version>
+        </dependency>
     </dependencies>
 </project>

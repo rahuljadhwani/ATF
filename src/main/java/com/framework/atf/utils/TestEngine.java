@@ -4,6 +4,7 @@ import com.framework.atf.utils.system.OSValidator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -93,8 +94,8 @@ public class TestEngine {
     }
 
     private WebDriver getHeadlessDriver() {
-        logger.warning("TODO: Implement Headless driver ");
-        return driver;
+        logger.warning("Implement Headless driver ");
+        return driver = new HtmlUnitDriver();
     }
 
     private WebDriver getFirefoxDriver() {
